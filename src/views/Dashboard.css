@@ -1,0 +1,303 @@
+.dash {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+/* ── Hero ───────────────────────────────────────────────────────────── */
+
+.dash__hero {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  overflow: hidden;
+  position: relative;
+}
+
+/* A single soft accent bloom in the corner. The only decorative gradient in
+   the app, and it sits behind everything at low opacity. */
+.dash__hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -15%;
+  width: 26rem;
+  height: 26rem;
+  border-radius: var(--radius-full);
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--accent-fill) 14%, transparent) 0%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.dash__hero-figures {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: 0;
+  position: relative;
+}
+
+.dash__total {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-display);
+  line-height: 1;
+  font-variation-settings: 'opsz' 48;
+  /* Long amounts in a small viewport wrap rather than overflowing. */
+  overflow-wrap: anywhere;
+}
+
+.dash__hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.dash__hero-meta strong {
+  color: var(--ink);
+  font-weight: var(--weight-bold);
+}
+
+.dash__hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.dash__hero-ring {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.dash__ring-percent {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-display);
+  line-height: 1;
+}
+
+.dash__ring-caption {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+@media (min-width: 48rem) {
+  .dash__hero {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-8);
+  }
+}
+
+/* ── Spotlight ──────────────────────────────────────────────────────── */
+
+.dash__spotlight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--goal-soft);
+  border: var(--border-width) solid color-mix(in oklab, var(--goal-fill) 30%, transparent);
+  border-radius: var(--radius-lg);
+  transition:
+    transform var(--dur-base) var(--ease-emphasized),
+    border-color var(--dur-base) var(--ease-standard);
+}
+
+.dash__spotlight:hover {
+  transform: translateY(-2px);
+  border-color: var(--goal-fill);
+}
+
+.dash__spotlight-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.dash__spotlight-name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-display);
+  font-variation-settings: 'opsz' 26;
+  line-height: var(--leading-tight);
+}
+
+.dash__spotlight-detail {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.dash__spotlight-chevron {
+  flex-shrink: 0;
+  color: var(--goal-fg);
+}
+
+/* ── Milestones ─────────────────────────────────────────────────────── */
+
+.dash__milestones {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+.dash__milestone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.dash__milestone-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.dash__milestone-goal {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--goal-fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash__milestone-amount {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.dash__milestone-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.dash__milestone-track {
+  height: 0.25rem;
+  border-radius: var(--radius-full);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.dash__milestone-fill {
+  display: block;
+  height: 100%;
+  background: var(--goal-fill);
+  border-radius: var(--radius-full);
+  transform-origin: left center;
+  transition: transform var(--dur-slower) var(--ease-emphasized);
+}
+
+/* ── Grid ───────────────────────────────────────────────────────────── */
+
+.dash__grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+}
+
+.dash__activity {
+  padding: var(--space-4) var(--space-5);
+}
+
+.dash__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--ink-2);
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+.dash__link:hover {
+  color: var(--ink);
+}
+
+/* ── First run ──────────────────────────────────────────────────────── */
+
+.first-run {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 34rem;
+  margin-inline: auto;
+  padding-block: var(--space-16);
+  text-align: center;
+  animation: rise-in var(--dur-slower) var(--ease-emphasized);
+}
+
+.first-run__mark {
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.first-run__title {
+  font-size: var(--text-2xl);
+  font-variation-settings: 'opsz' 44;
+}
+
+.first-run__body {
+  color: var(--ink-2);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+.first-run__actions {
+  margin-top: var(--space-4);
+}
+
+.first-run__hints {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: var(--border-width) solid var(--line);
+  width: 100%;
+  text-align: left;
+}
+
+.first-run__hints li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  line-height: var(--leading-snug);
+}
+
+.first-run__hints svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--accent);
+}

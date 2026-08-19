@@ -1,0 +1,21 @@
+/* Page-level entrance. Each route change remounts this wrapper via its key. */
+.page {
+  animation: page-in var(--dur-slow) var(--ease-emphasized);
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .page {
+    animation: fade-in 1ms linear;
+  }
+}
+
+:root[data-motion='reduced'] .page {
+  animation: fade-in 1ms linear;
+}

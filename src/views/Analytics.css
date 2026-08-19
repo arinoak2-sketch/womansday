@@ -1,0 +1,91 @@
+.analytics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+/* ── KPI row ────────────────────────────────────────────────────────── */
+
+.an-kpis {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+}
+
+.an-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.an-kpi__value {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-tight);
+  overflow-wrap: anywhere;
+}
+
+.an-kpi__hint {
+  font-size: var(--text-2xs);
+  color: var(--ink-3);
+}
+
+/* ── Chart panels ───────────────────────────────────────────────────── */
+
+.an-chart {
+  padding: var(--space-5);
+  /* Charts measure their container, so the panel must never be the thing that
+     overflows the page. */
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Highlights ─────────────────────────────────────────────────────── */
+
+.an-highlights {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+
+.an-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-md);
+  min-width: 0;
+}
+
+.an-highlight__icon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.an-highlight__value {
+  margin-top: var(--space-1);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-display);
+  font-variation-settings: 'opsz' 22;
+  line-height: var(--leading-snug);
+  overflow-wrap: anywhere;
+}
+
+.an-highlight__detail {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  line-height: var(--leading-snug);
+}

@@ -1,0 +1,123 @@
+.amount-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.amount-sheet__quick {
+  margin-top: calc(var(--space-2) * -1);
+}
+
+/* ── Chips ──────────────────────────────────────────────────────────── */
+
+.amount-sheet__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* 44px minimum touch target — these are the primary way amounts get entered
+     on a phone. */
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-2);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  transition:
+    background-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-instant) var(--ease-standard);
+}
+
+.chip:hover {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+.chip--selected {
+  background: var(--goal-soft, var(--accent-soft));
+  border-color: var(--goal-fill, var(--accent-fill));
+  color: var(--goal-fg, var(--accent));
+}
+
+.chip--emphasis {
+  background: var(--goal-soft, var(--accent-soft));
+  color: var(--goal-fg, var(--accent));
+  padding-block: var(--space-1);
+  line-height: var(--leading-tight);
+}
+
+.chip__sub {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  opacity: 0.75;
+}
+
+/* ── Preview ────────────────────────────────────────────────────────── */
+
+.amount-sheet__preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--surface-inset);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-md);
+  animation: rise-in var(--dur-base) var(--ease-emphasized);
+}
+
+.amount-sheet__preview-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.amount-sheet__preview-row strong {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+}
+
+.amount-sheet__unlock {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: var(--border-width) dashed var(--line-strong);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--goal-fg, var(--accent));
+}
+
+/* ── Categories ─────────────────────────────────────────────────────── */
+
+.amount-sheet__categories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.amount-sheet__categories legend {
+  padding: 0;
+  margin-bottom: var(--space-2);
+}

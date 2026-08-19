@@ -1,0 +1,186 @@
+.tx {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.tx__filters {
+  display: flex;
+  min-width: 0;
+}
+
+.tx__groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.tx__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.tx__day {
+  font-family: var(--font-ui);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-inline: var(--space-1);
+}
+
+.tx__list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Row ────────────────────────────────────────────────────────────── */
+
+.tx__row {
+  display: grid;
+  /* icon · detail · amount · actions — one column each. A missing fourth
+     column would push the actions onto an implicit second row and double the
+     height of every entry. */
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-2);
+  border-radius: var(--radius-md);
+  transition: background-color var(--dur-fast) var(--ease-standard);
+}
+
+.tx__row + .tx__row {
+  /* A hairline rather than a full divider keeps a long history calm. */
+  box-shadow: inset 0 1px 0 var(--line);
+}
+
+.tx__row:hover {
+  background: var(--surface-2);
+  box-shadow: none;
+}
+
+.tx__row:hover + .tx__row {
+  box-shadow: none;
+}
+
+.tx__icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.tx__icon--add {
+  background: var(--positive-soft);
+  color: var(--positive);
+}
+
+.tx__icon--spend {
+  background: var(--negative-soft);
+  color: var(--negative);
+}
+
+.tx__detail {
+  min-width: 0;
+}
+
+.tx__primary {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tx__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tx__amount {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+
+.tx__amount--add {
+  color: var(--positive);
+}
+
+.tx__amount--spend {
+  color: var(--negative);
+}
+
+/* ── Actions ────────────────────────────────────────────────────────── */
+
+.tx__actions {
+  display: flex;
+  gap: var(--space-1);
+  /* Hidden until the row is hovered or something inside it has focus, so a
+     long list stays quiet — but always present for touch and keyboard. */
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-standard);
+}
+
+.tx__row:hover .tx__actions,
+.tx__row:focus-within .tx__actions {
+  opacity: 1;
+}
+
+/* Pointer-less devices can't hover, so the actions stay visible there. */
+@media (hover: none) {
+  .tx__actions {
+    opacity: 1;
+  }
+}
+
+.tx__action {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
+  color: var(--ink-3);
+  transition:
+    background-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard);
+}
+
+.tx__action:hover {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.tx__action--danger:hover {
+  background: var(--negative-soft);
+  color: var(--negative);
+}
+
+.tx__empty {
+  padding-block: var(--space-2);
+}
+
+/* On narrow screens the row drops the hover affordance and relies on the
+   permanently visible actions above. */
+@media (max-width: 30rem) {
+  .tx__row {
+    gap: var(--space-2);
+    padding-inline: var(--space-1);
+  }
+
+  .tx__action {
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+}

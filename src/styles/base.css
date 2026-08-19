@@ -1,0 +1,376 @@
+/**
+ * Reset, document defaults, and the handful of primitives used everywhere.
+ * Component-specific styling lives beside each component.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Anchors and programmatic scrolls ease rather than jump — but only when the
+     user hasn't asked for reduced motion. */
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--bg);
+  background-image: var(--bg-wash);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-snug);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Stops iOS rubber-banding revealing a white strip under the dark theme. */
+  overscroll-behavior-y: none;
+}
+
+img,
+picture,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  /* Prevents the 300ms tap delay and the grey flash on iOS. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  /* Fraunces' optical-size axis: larger sizes get more contrast and finer
+     serifs, small sizes get sturdier ones. */
+  font-variation-settings: 'opsz' 32;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+hr {
+  border: none;
+  border-top: var(--border-width) solid var(--line);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+/* ── Focus ──────────────────────────────────────────────────────────── */
+
+/**
+ * A two-tone ring: a gap in the page background, then the ring itself. It
+ * stays visible on any surface in either theme, which a single-colour outline
+ * does not.
+ */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* Focus rings are for keyboard users; pointer interactions get their own
+   pressed states instead. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────────── */
+
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: var(--radius-full);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-3);
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+/* ── Typography primitives ──────────────────────────────────────────── */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-variation-settings: 'opsz' 40;
+}
+
+/**
+ * Money and any figure that animates.
+ *
+ * `tabular-nums` is essential: without it, a counting-up number jitters
+ * horizontally as glyph widths change, which reads as a bug.
+ */
+.numeric {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: 'tnum' 1, 'lnum' 1;
+  letter-spacing: var(--tracking-tight);
+  font-variation-settings: 'opsz' 36;
+}
+
+.numeric-ui {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.overline {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.muted {
+  color: var(--ink-2);
+}
+
+.subtle {
+  color: var(--ink-3);
+}
+
+/* ── Accessibility helpers ──────────────────────────────────────────── */
+
+/** Visible to screen readers, invisible on screen. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/** A skip link: hidden until focused, then pinned to the top-left. */
+.skip-link {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 100;
+  padding: var(--space-3) var(--space-5);
+  background: var(--surface);
+  color: var(--ink);
+  border: var(--border-width) solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-3);
+  font-weight: var(--weight-semibold);
+  transform: translateY(calc(-100% - var(--space-4)));
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ── Layout primitives ──────────────────────────────────────────────── */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.spread {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/**
+ * Any element that can overflow horizontally (tables, chart rows, chip rails)
+ * scrolls inside itself. The page body must never scroll sideways.
+ */
+.scroll-x {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Shared surfaces ────────────────────────────────────────────────── */
+
+.panel {
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+
+.panel-inset {
+  background: var(--surface-inset);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+/* ── Motion primitives ──────────────────────────────────────────────── */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -160% 0;
+  }
+  to {
+    background-position: 260% 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+/**
+ * Staggered list entrance. A parent sets `--stagger-index` per child; the
+ * delay is capped so a long list never leaves the last item waiting.
+ */
+.animate-rise {
+  animation: rise-in var(--dur-slow) var(--ease-emphasized) both;
+  animation-delay: calc(min(var(--stagger-index, 0), 8) * 45ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .animate-rise {
+    animation: fade-in 1ms linear both;
+  }
+}
+
+:root[data-motion='reduced'] .animate-rise {
+  animation: fade-in 1ms linear both;
+}
+
+/* ── Print ──────────────────────────────────────────────────────────── */
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

@@ -1,0 +1,145 @@
+.celebration {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-celebration);
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: var(--scrim);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fade-in var(--dur-base) var(--ease-standard);
+}
+
+.confetti-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.celebration__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 24rem;
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-4);
+  text-align: center;
+  animation: celebration-in var(--dur-slow) var(--ease-spring) both;
+}
+
+@keyframes celebration-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(16px);
+  }
+}
+
+/* ── Badge ──────────────────────────────────────────────────────────── */
+
+.celebration__badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: var(--space-1);
+  border-radius: var(--radius-full);
+  background: var(--goal-soft, var(--accent-soft));
+  color: var(--goal-fg, var(--accent));
+}
+
+/* A single expanding ring rather than a persistent pulse — it fires twice and
+   stops, so the card doesn't throb while it's being read. */
+.celebration__badge-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--goal-fill, var(--accent-fill));
+  animation: pulse-ring 1.6s var(--ease-standard) 2;
+}
+
+/* ── Text ───────────────────────────────────────────────────────────── */
+
+.celebration__goal {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--goal-fg, var(--accent));
+}
+
+.celebration__title {
+  font-size: var(--text-xl);
+  font-variation-settings: 'opsz' 34;
+}
+
+.celebration__blurb {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  line-height: var(--leading-snug);
+  max-width: 20rem;
+}
+
+.celebration__amount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  margin: var(--space-3) 0 var(--space-4);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-display);
+  color: var(--ink);
+}
+
+.celebration__of {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-snug);
+  color: var(--ink-3);
+}
+
+/* ── Completion ─────────────────────────────────────────────────────── */
+
+.celebration--complete .celebration__card {
+  border-color: var(--goal-fill, var(--accent-fill));
+  /* A single warm rim rather than a full gradient wash — the confetti is
+     already carrying the moment. */
+  box-shadow:
+    var(--shadow-4),
+    0 0 0 1px color-mix(in oklab, var(--goal-fill, var(--accent-fill)) 40%, transparent),
+    0 0 60px -12px color-mix(in oklab, var(--goal-fill, var(--accent-fill)) 55%, transparent);
+}
+
+.celebration--complete .celebration__title {
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-tight);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .celebration,
+  :root:not([data-motion='full']) .celebration__card {
+    animation-duration: 1ms;
+  }
+  :root:not([data-motion='full']) .celebration__badge-ring {
+    display: none;
+  }
+}
+
+:root[data-motion='reduced'] .celebration,
+:root[data-motion='reduced'] .celebration__card {
+  animation-duration: 1ms;
+}
+
+:root[data-motion='reduced'] .celebration__badge-ring {
+  display: none;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "aurum-price-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Price lookup for Aurum, backed by SerpAPI Google Shopping.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "setup": "node setup.mjs"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250109.0",
+    "wrangler": "^3.99.0"
+  }
+}

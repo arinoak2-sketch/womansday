@@ -1,0 +1,128 @@
+/* ── Ring ───────────────────────────────────────────────────────────── */
+
+.ring {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.ring__track {
+  fill: none;
+  stroke: var(--surface-3);
+}
+
+.ring__indicator {
+  fill: none;
+  /* The sweep is the payoff for adding money, so it runs longer and with more
+     ease-out than a normal state change. */
+  transition: stroke-dashoffset var(--dur-slower) var(--ease-emphasized);
+}
+
+.ring__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  text-align: center;
+  /* Lets clicks reach a card behind the ring. */
+  pointer-events: none;
+}
+
+/* A completed ring gets a soft halo — the only place in the app that glows. */
+.ring--complete::after {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  border-radius: var(--radius-full);
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--goal-fill, var(--accent-fill)) 26%, transparent) 0%,
+    transparent 68%
+  );
+  animation: ring-halo 3.2s var(--ease-standard) infinite;
+  pointer-events: none;
+}
+
+@keyframes ring-halo {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .ring--complete::after {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+:root[data-motion='reduced'] .ring--complete::after {
+  animation: none;
+  opacity: 0.6;
+}
+
+/* ── Bar ────────────────────────────────────────────────────────────── */
+
+.bar {
+  --bar-height: 0.625rem;
+  width: 100%;
+}
+
+.bar--sm {
+  --bar-height: 0.375rem;
+}
+
+.bar__track {
+  position: relative;
+  height: var(--bar-height);
+  background: var(--surface-3);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.bar__fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--goal-fill, var(--accent-fill)) 82%, var(--surface)) 0%,
+    var(--goal-fill, var(--accent-fill)) 100%
+  );
+  border-radius: var(--radius-full);
+  /* Scaling from the left edge animates on the compositor, unlike width. */
+  transform-origin: left center;
+  transition: transform var(--dur-slower) var(--ease-emphasized);
+}
+
+.bar__tick {
+  position: absolute;
+  top: 50%;
+  width: 2px;
+  height: var(--bar-height);
+  translate: -1px -50%;
+  background: var(--surface);
+  opacity: 0.75;
+  transition: opacity var(--dur-base) var(--ease-standard);
+}
+
+/* An achieved tick fades back — the bar's own fill already tells that story,
+   and a bright mark behind the fill just adds noise. */
+.bar__tick--achieved {
+  opacity: 0.3;
+}
+
+.bar--complete .bar__fill {
+  background: linear-gradient(
+    90deg,
+    var(--goal-fill, var(--accent-fill)) 0%,
+    color-mix(in oklab, var(--goal-fill, var(--accent-fill)) 70%, #fff) 100%
+  );
+}

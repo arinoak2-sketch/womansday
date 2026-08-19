@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover lets the tab bar sit under the iPhone home indicator
+         while --safe-bottom keeps its contents clear of it. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <!-- Updated at runtime to match the active theme. -->
+    <meta name="theme-color" content="#faf7f2" />
+    <meta
+      name="description"
+      content="Aurum turns the things you want into savings goals you can actually see yourself reaching."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Aurum — Savings & goals</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="font-family: system-ui, sans-serif; padding: 2rem; max-width: 32rem">
+        Aurum needs JavaScript to run. It stores everything locally in your browser, so there's no
+        server-rendered version to fall back to.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

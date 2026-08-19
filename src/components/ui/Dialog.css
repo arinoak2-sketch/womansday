@@ -1,0 +1,251 @@
+/**
+ * Dialog / bottom sheet.
+ *
+ * Enter and exit transitions are handled entirely in CSS using
+ * `transition-behavior: allow-discrete` plus `@starting-style`, so the panel
+ * animates in *and* out without JavaScript timing the unmount. Browsers
+ * without that support snap instead of sliding, which is a fine degradation.
+ */
+
+.dialog {
+  /* The native dialog is only a positioning shell; the panel inside carries
+     the visible surface. */
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  overflow: hidden;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  /**
+   * A closed dialog MUST stay `display: none`.
+   *
+   * The UA stylesheet does this via `dialog:not([open])`, and setting a plain
+   * `display: flex` here would silently override it — leaving an invisible,
+   * full-viewport element on top of the page that swallows every click.
+   * Transitioning `display` and `overlay` as discrete properties keeps the
+   * element rendered for the length of the exit animation and then removes it.
+   */
+  display: none;
+  transition:
+    display var(--dur-slow) allow-discrete,
+    overlay var(--dur-slow) allow-discrete;
+}
+
+.dialog[open] {
+  display: flex;
+}
+
+.dialog::backdrop {
+  background: var(--scrim);
+  backdrop-filter: blur(var(--scrim-blur));
+  -webkit-backdrop-filter: blur(var(--scrim-blur));
+  opacity: 0;
+  transition:
+    opacity var(--dur-base) var(--ease-standard),
+    display var(--dur-base) allow-discrete,
+    overlay var(--dur-base) allow-discrete;
+}
+
+.dialog[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* ── Panel ──────────────────────────────────────────────────────────── */
+
+.dialog__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Never taller than the viewport, and never under the home indicator. */
+  max-height: calc(100dvh - var(--space-8));
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-bottom: none;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  box-shadow: var(--shadow-4);
+  translate: 0 100%;
+  transition:
+    translate var(--dur-slow) var(--ease-emphasized),
+    opacity var(--dur-base) var(--ease-standard);
+}
+
+.dialog[open] .dialog__panel {
+  translate: 0 0;
+}
+
+@starting-style {
+  .dialog[open] .dialog__panel {
+    translate: 0 100%;
+  }
+}
+
+/* ── Grip (mobile swipe affordance) ─────────────────────────────────── */
+
+.dialog__grip-area {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-3) 0 var(--space-1);
+  /* Claims vertical gestures so a downward drag doesn't scroll the body. */
+  touch-action: none;
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.dialog__grip {
+  width: 2.5rem;
+  height: 0.25rem;
+  border-radius: var(--radius-full);
+  background: var(--line-strong);
+}
+
+/* ── Regions ────────────────────────────────────────────────────────── */
+
+.dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5) var(--space-4);
+  flex-shrink: 0;
+}
+
+.dialog__heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.dialog__title {
+  font-size: var(--text-lg);
+  font-variation-settings: 'opsz' 28;
+}
+
+.dialog__description {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  line-height: var(--leading-snug);
+}
+
+.dialog__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 var(--space-5) var(--space-5);
+  -webkit-overflow-scrolling: touch;
+}
+
+.dialog__message {
+  color: var(--ink-2);
+  line-height: var(--leading-normal);
+}
+
+.dialog__footer {
+  flex-shrink: 0;
+  padding: var(--space-4) var(--space-5);
+  /* Keeps the action row clear of the iPhone home indicator. */
+  padding-bottom: calc(var(--space-4) + var(--safe-bottom));
+  border-top: var(--border-width) solid var(--line);
+  background: var(--surface);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+.dialog__actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.dialog__actions > * {
+  flex: 1;
+}
+
+/* ── Desktop: centred card ──────────────────────────────────────────── */
+
+@media (min-width: 40rem) {
+  .dialog {
+    align-items: center;
+    padding: var(--space-6);
+  }
+
+  .dialog__panel {
+    max-width: 30rem;
+    max-height: min(46rem, calc(100dvh - var(--space-12)));
+    border-radius: var(--radius-xl);
+    border-bottom: var(--border-width) solid var(--line);
+    translate: 0 0;
+    opacity: 0;
+    scale: 0.97;
+    transition:
+      opacity var(--dur-base) var(--ease-standard),
+      scale var(--dur-base) var(--ease-emphasized);
+  }
+
+  .dialog[open] .dialog__panel {
+    opacity: 1;
+    scale: 1;
+  }
+
+  @starting-style {
+    .dialog[open] .dialog__panel {
+      opacity: 0;
+      scale: 0.97;
+    }
+  }
+
+  .dialog--lg .dialog__panel {
+    max-width: 38rem;
+  }
+
+  /* The grip is a touch affordance; on pointer devices it's noise. */
+  .dialog__grip-area {
+    display: none;
+  }
+
+  .dialog__header {
+    padding-top: var(--space-5);
+  }
+
+  .dialog__footer {
+    padding-bottom: var(--space-4);
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  }
+
+  .dialog__actions {
+    justify-content: flex-end;
+  }
+
+  .dialog__actions > * {
+    flex: 0 1 auto;
+    min-width: 7rem;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .dialog__panel,
+  :root:not([data-motion='full']) .dialog::backdrop {
+    transition-duration: 1ms;
+  }
+}
+
+:root[data-motion='reduced'] .dialog__panel,
+:root[data-motion='reduced'] .dialog::backdrop {
+  transition-duration: 1ms;
+}

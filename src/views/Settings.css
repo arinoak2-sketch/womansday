@@ -1,0 +1,191 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-width: 46rem;
+}
+
+.settings__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.settings__group-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-md);
+  font-variation-settings: 'opsz' 22;
+  color: var(--ink-2);
+}
+
+.settings__group-title svg {
+  color: var(--ink-3);
+}
+
+.settings__panel {
+  padding: var(--space-2) var(--space-5);
+}
+
+/* ── Rows ───────────────────────────────────────────────────────────── */
+
+.settings__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-block: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.settings__row + .settings__row {
+  border-top: var(--border-width) solid var(--line);
+}
+
+.settings__row-text {
+  flex: 1;
+  min-width: 14rem;
+}
+
+.settings__row-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.settings__row-description {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  line-height: var(--leading-snug);
+  max-width: 34rem;
+}
+
+.settings__row-control {
+  flex-shrink: 0;
+  min-width: 12rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* The select and segmented controls stretch to the control column's width. */
+.settings__row-control > * {
+  width: 100%;
+}
+
+.settings__row-control .segmented {
+  width: auto;
+}
+
+@media (max-width: 34rem) {
+  .settings__row-control {
+    width: 100%;
+    min-width: 0;
+    justify-content: flex-start;
+  }
+}
+
+/* ── Switch ─────────────────────────────────────────────────────────── */
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.switch__input {
+  /* Visually hidden but still the real, focusable control. */
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch__track {
+  display: flex;
+  align-items: center;
+  width: 3rem;
+  height: 1.75rem;
+  padding: 0.1875rem;
+  border-radius: var(--radius-full);
+  background: var(--surface-3);
+  border: var(--border-width) solid var(--line-strong);
+  transition:
+    background-color var(--dur-base) var(--ease-standard),
+    border-color var(--dur-base) var(--ease-standard);
+}
+
+.switch__thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  transition: translate var(--dur-base) var(--ease-emphasized);
+}
+
+.switch__input:checked + .switch__track {
+  background: var(--accent-fill);
+  border-color: var(--accent-fill);
+}
+
+/* Position, not just colour, communicates the state. */
+.switch__input:checked + .switch__track .switch__thumb {
+  translate: 1.25rem 0;
+}
+
+.switch__input:focus-visible + .switch__track {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.switch__input:disabled + .switch__track {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Provider status ────────────────────────────────────────────────── */
+
+.settings__status {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding-block: var(--space-4);
+}
+
+.settings__status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.4rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.settings__status-dot--on {
+  background: var(--positive-fill);
+}
+
+.settings__status-dot--off {
+  background: var(--ink-3);
+}
+
+.settings__status-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.settings__status-body {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  line-height: var(--leading-normal);
+  max-width: 38rem;
+}
+
+.settings__footer {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  line-height: var(--leading-normal);
+  max-width: 38rem;
+}

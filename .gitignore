@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Alternate build outputs (e.g. a build made with a search endpoint configured)
+dist-*
+
+# Screenshots written by the e2e scripts
+e2e/screenshots/
+
+# Cloudflare Workers local state
+.wrangler/

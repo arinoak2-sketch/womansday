@@ -1,0 +1,40 @@
+.product-image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background: var(--goal-soft, var(--surface-2));
+  border: var(--border-width) solid color-mix(in oklab, var(--goal-fill, var(--line)) 22%, transparent);
+  overflow: hidden;
+}
+
+.product-image__monogram {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--goal-fg, var(--ink-3));
+  line-height: 1;
+  user-select: none;
+}
+
+.product-image__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Held at zero opacity until `load` fires, so a half-decoded image never
+     flashes over the monogram. */
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-standard);
+}
+
+.product-image__img--loaded {
+  opacity: 1;
+}
+
+/* Larger presentation used on the goal detail hero and search results. */
+.product-image--hero {
+  border-radius: var(--radius-lg);
+}

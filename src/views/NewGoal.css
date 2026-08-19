@@ -1,0 +1,358 @@
+.new-goal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 46rem;
+}
+
+.new-goal__modes {
+  display: flex;
+}
+
+/* ── Search ─────────────────────────────────────────────────────────── */
+
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.search__row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: stretch;
+}
+
+.search__input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.search__icon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+
+.search__input {
+  padding-left: var(--space-10);
+  min-height: 3.375rem;
+}
+
+/* Removes Safari's own clear button, which sits awkwardly next to ours. */
+.search__input::-webkit-search-decoration,
+.search__input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.search__results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.search__count {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.search__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.search__result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-4);
+  text-align: left;
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-base) var(--ease-emphasized),
+    box-shadow var(--dur-base) var(--ease-standard);
+}
+
+.search__result:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+
+.search__result--loading {
+  cursor: default;
+  pointer-events: none;
+}
+
+.search__result-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.search__result-title {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: var(--weight-display);
+  font-variation-settings: 'opsz' 22;
+  line-height: var(--leading-snug);
+}
+
+.search__result-brand {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.search__result-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-1);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-display);
+}
+
+.search__result-offers {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--ink-3);
+  letter-spacing: var(--tracking-snug);
+}
+
+.search__result-noprice {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--ink-3);
+}
+
+.search__result-chevron {
+  flex-shrink: 0;
+  color: var(--ink-3);
+}
+
+.search__disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-inset);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+  line-height: var(--leading-snug);
+}
+
+.search__disclaimer svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--ink-3);
+}
+
+.search__error-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── Goal form ──────────────────────────────────────────────────────── */
+
+.goal-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.goal-form__product {
+  display: flex;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: var(--border-width) solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+
+.goal-form__product-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.goal-form__product-title {
+  font-size: var(--text-lg);
+  font-variation-settings: 'opsz' 26;
+}
+
+.goal-form__product-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-display);
+}
+
+.goal-form__product-est {
+  font-family: var(--font-ui);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.goal-form__product-noprice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+  line-height: var(--leading-snug);
+}
+
+.goal-form__product-noprice svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Sources disclosure ─────────────────────────────────────────────── */
+
+.goal-form__sources {
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+}
+
+.goal-form__sources summary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  cursor: pointer;
+  font-weight: var(--weight-semibold);
+  color: var(--ink-2);
+  list-style: none;
+}
+
+.goal-form__sources summary::-webkit-details-marker {
+  display: none;
+}
+
+.goal-form__sources[open] summary svg {
+  rotate: 180deg;
+}
+
+.goal-form__sources summary svg {
+  transition: rotate var(--dur-fast) var(--ease-standard);
+}
+
+.goal-form__source-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  background: var(--surface-inset);
+  border-radius: var(--radius-sm);
+}
+
+.goal-form__source-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  color: var(--ink-2);
+}
+
+.goal-form__retrieved {
+  margin-top: var(--space-2);
+  color: var(--ink-3);
+  line-height: var(--leading-snug);
+}
+
+/* ── Fields ─────────────────────────────────────────────────────────── */
+
+.goal-form__grid {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 40rem) {
+  .goal-form__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.goal-form__accents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.accent-swatch {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background: var(--goal-fill);
+  color: #fff;
+  border: 2px solid transparent;
+  outline-offset: 3px;
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.accent-swatch:hover {
+  transform: scale(1.08);
+}
+
+/* Selection is shown by a check mark as well as the ring, so it isn't carried
+   by colour alone. */
+.accent-swatch--selected {
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--goal-fill);
+}
+
+.goal-form__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: var(--goal-soft);
+  border-radius: var(--radius-md);
+}
+
+.goal-form__summary p {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-display);
+}
+
+.goal-form__actions {
+  position: sticky;
+  bottom: calc(var(--tabbar-height) + var(--safe-bottom) + var(--space-3));
+  z-index: 1;
+}
+
+@media (min-width: 60rem) {
+  .goal-form__actions {
+    position: static;
+  }
+}

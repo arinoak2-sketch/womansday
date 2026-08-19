@@ -1,0 +1,174 @@
+.btn {
+  --btn-height: 2.75rem;
+  --btn-padding-x: var(--space-5);
+  --btn-gap: var(--space-2);
+  --btn-radius: var(--radius-full);
+  --btn-font-size: var(--text-sm);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  min-height: var(--btn-height);
+  padding-inline: var(--btn-padding-x);
+  border-radius: var(--btn-radius);
+  border: var(--border-width) solid transparent;
+  font-size: var(--btn-font-size);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-snug);
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    background-color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard),
+    transform var(--dur-instant) var(--ease-standard);
+}
+
+/* A press dips the button slightly. Kept small — at this scale it reads as
+   physical rather than bouncy. */
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn[aria-busy='true'] {
+  cursor: progress;
+}
+
+/* ── Sizes ──────────────────────────────────────────────────────────── */
+
+.btn--sm {
+  --btn-height: 2.125rem;
+  --btn-padding-x: var(--space-3);
+  --btn-gap: var(--space-1);
+  --btn-font-size: var(--text-xs);
+}
+
+.btn--lg {
+  --btn-height: 3.375rem;
+  --btn-padding-x: var(--space-7);
+  --btn-font-size: var(--text-base);
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+.btn--icon-only {
+  --btn-padding-x: 0;
+  width: var(--btn-height);
+  min-width: var(--btn-height);
+}
+
+/* ── Variants ───────────────────────────────────────────────────────── */
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--ink-inverse);
+  box-shadow: var(--shadow-2);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: color-mix(in oklab, var(--ink) 88%, var(--accent-fill));
+  box-shadow: var(--shadow-3);
+}
+
+.btn--secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-1);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--ink-3);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink-2);
+  border-color: var(--line);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.btn--quiet {
+  background: transparent;
+  color: var(--ink-2);
+}
+
+.btn--quiet:hover:not(:disabled) {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+
+.btn--danger {
+  background: var(--negative-soft);
+  color: var(--negative);
+  border-color: color-mix(in oklab, var(--negative) 24%, transparent);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--negative-fill);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ── Contents ───────────────────────────────────────────────────────── */
+
+.btn__label {
+  /* Keeps the label from collapsing oddly when a long goal name is used as a
+     button label on a narrow screen. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn__spinner {
+  width: 1em;
+  height: 1em;
+  border-radius: var(--radius-full);
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  animation: btn-spin 620ms linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* With reduced motion the spinner would be a static ring, which reads as a
+   broken control — pulse the opacity instead so it still signals activity. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .btn__spinner {
+    animation: btn-pulse 1s ease-in-out infinite;
+  }
+}
+
+:root[data-motion='reduced'] .btn__spinner {
+  animation: btn-pulse 1s ease-in-out infinite;
+}
+
+@keyframes btn-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}

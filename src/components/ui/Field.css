@@ -1,0 +1,172 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.field__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--ink-2);
+  letter-spacing: var(--tracking-snug);
+}
+
+.field__optional {
+  font-weight: var(--weight-regular);
+  color: var(--ink-3);
+}
+
+.field__hint {
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+  line-height: var(--leading-snug);
+}
+
+.field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--negative);
+  line-height: var(--leading-snug);
+  animation: field-error-in var(--dur-fast) var(--ease-standard);
+}
+
+.field__error svg {
+  flex-shrink: 0;
+  /* Optically centres the 15px icon against the first line of text. */
+  margin-top: 1px;
+}
+
+@keyframes field-error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+}
+
+/* ── Controls ───────────────────────────────────────────────────────── */
+
+.input {
+  width: 100%;
+  min-height: 2.875rem;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  color: var(--ink);
+  border: var(--border-width) solid var(--line-strong);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  transition:
+    border-color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard),
+    background-color var(--dur-fast) var(--ease-standard);
+}
+
+.input::placeholder {
+  color: var(--ink-3);
+  font-weight: var(--weight-regular);
+}
+
+.input:hover:not(:disabled):not(:focus) {
+  border-color: var(--ink-3);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
+}
+
+/**
+ * Keyboard focus gets the standard ring *instead of* the soft glow, not on top
+ * of it — stacking an outline outside a coloured border reads as a clumsy
+ * double stroke. Either way focus is a shape change, never colour alone.
+ */
+.input:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+  box-shadow: none;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--negative);
+}
+
+.input[aria-invalid='true']:focus {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--negative) 20%, transparent);
+}
+
+.input:disabled {
+  background: var(--surface-2);
+  color: var(--ink-3);
+  cursor: not-allowed;
+}
+
+.input--textarea {
+  resize: vertical;
+  min-height: 5.5rem;
+  line-height: var(--leading-normal);
+}
+
+/* ── Select ─────────────────────────────────────────────────────────── */
+
+.select {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+.select__control {
+  appearance: none;
+  padding-right: var(--space-10);
+  cursor: pointer;
+}
+
+.select__chevron {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+
+/* ── Amount ─────────────────────────────────────────────────────────── */
+
+.amount-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.amount-input__symbol {
+  position: absolute;
+  left: var(--space-4);
+  font-family: var(--font-display);
+  color: var(--ink-3);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.amount-input__control {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: var(--tracking-tight);
+  padding-left: var(--space-10);
+}
+
+.amount-input--lg .amount-input__control {
+  min-height: 4.5rem;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-display);
+  padding-left: var(--space-12);
+  text-align: left;
+}
+
+.amount-input--lg .amount-input__symbol {
+  font-size: var(--text-lg);
+  left: var(--space-5);
+}

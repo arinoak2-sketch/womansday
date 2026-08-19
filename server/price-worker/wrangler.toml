@@ -1,0 +1,25 @@
+name = "aurum-price-worker"
+main = "src/index.ts"
+compatibility_date = "2025-07-18"
+
+[observability]
+enabled = true
+
+[vars]
+# Origins allowed to call this worker. The SerpAPI key behind it is spendable,
+# so set this to your real site before going live — anyone who finds an open
+# worker URL can burn your search credits.
+#
+#   ALLOWED_ORIGINS = "https://aurum.example.com"
+#
+# "*" is for local development only.
+ALLOWED_ORIGINS = "*"
+
+# How long to cache a search, in seconds. Every cache miss is a billed SerpAPI
+# search and shop prices don't move minute to minute, so this is deliberately
+# long. 6 hours.
+CACHE_TTL_SECONDS = "21600"
+
+# Secrets are NOT set here — that would put them in version control.
+#   wrangler secret put SERPAPI_KEY
+#   wrangler secret put SHARED_TOKEN   # optional, see README
